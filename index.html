@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ga mau didalam pengen keluar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #080b12;
+  --bg-card: #111827;
+  --bg-card-elevated: #172033;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --accent-emerald: #10b981;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px 40px;
+}
+.container {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.header {
+  text-align: center;
+  padding: 8px 0;
+}
+.badge-quality {
+  display: inline-block;
+  background: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+h1 {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.35;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, #ffffff 40%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.player-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+  position: relative;
+}
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+}
+video {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.landing-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #090d16;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  z-index: 10;
+  cursor: pointer;
+}
+.landing-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(8, 11, 18, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+.landing-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.play-btn {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
+  transition: all 0.2s ease;
+}
+.play-btn svg {
+  width: 32px;
+  height: 32px;
+  fill: #ffffff;
+  margin-left: 4px;
+}
+.play-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.8);
+}
+.btn-continue {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+  transition: all 0.2s ease;
+}
+.btn-continue:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+}
+.playlist-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+}
+.playlist-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+.playlist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.playlist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--bg-card-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+.playlist-item:hover, .playlist-item.active {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.12);
+  color: #c7d2fe;
+}
+.playlist-item.active strong {
+  color: var(--accent-emerald);
+}
+.ad-slot {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20px;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+.modal-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  max-width: 420px;
+  width: 100%;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+.modal-box h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #f43f5e;
+}
+.modal-box p {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.modal-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  border: none;
+}
+.modal-btn-confirm {
+  background: #f43f5e;
+  color: #fff;
+}
+.modal-btn-cancel {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-muted);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  
+
+  <div class="header">
+    <span class="badge-quality">1080p HD</span>
+    <h1 id="mainTitle">ga mau didalam pengen keluar</h1>
+  </div>
+
+  <div class="player-card">
+    <div class="video-wrapper">
+      <div class="landing-overlay" id="landingOverlay" >
+        <div class="landing-content">
+          <div class="play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          </div>
+          <button type="button" class="btn-continue">Continue Watching</button>
+        </div>
+      </div>
+      <video id="videoPlayer" controls playsinline preload="metadata"></video>
+    </div>
+  </div>
+
+  
+
+  <div class="playlist-card" id="playlistCard" style="">
+    <div class="playlist-title">Daftar Video (5)</div>
+    <div class="playlist-items" id="playlistItems"></div>
+  </div>
+
+  
+</div>
+
+<div class="modal-overlay" id="ageModal" style="display:none">
+  <div class="modal-box">
+    <h3>Peringatan 18+</h3>
+    <p>Halaman ini berisi konten untuk usia 18 tahun ke atas. Apakah Anda ingin melanjutkan?</p>
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-cancel" id="ageCancel">Tutup</button>
+      <button class="modal-btn modal-btn-confirm" id="ageConfirm">Lanjutkan</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const videos = [{"num":1,"title":"ga mau didalam pengen keluar","src":"https://cdn.videy.co/s6mY4nMS1.mp4"},{"num":2,"title":"hari hari sama timun","src":"https://cdn.videy.co/2qEL1Pnw1.mp4"},{"num":3,"title":"hijab pamer","src":"https://cdn.videy.co/eiJAP1KM1.mp4"},{"num":4,"title":"tevi sama berondong dimulut","src":"https://cdn.videy.co/k1qi7JPP1.mp4"},{"num":5,"title":"tiny antusias ngerekam","src":"https://cdn.videy.co/KP3gKqbw1.mp4"}];
+  const directUrl = "";
+  const directTrigger = "continue";
+  const agePrompt = "on";
+  const agePromptSeconds = 20;
+  const autoRedirect = "off";
+  const redirectSeconds = 60;
+  const redirectLocalStorage = "off";
+
+  const overlay = document.getElementById('landingOverlay');
+  const player = document.getElementById('videoPlayer');
+  const mainTitle = document.getElementById('mainTitle');
+  const playlistItems = document.getElementById('playlistItems');
+  const ageModal = document.getElementById('ageModal');
+  const ageConfirm = document.getElementById('ageConfirm');
+  const ageCancel = document.getElementById('ageCancel');
+
+  const params = new URLSearchParams(window.location.search);
+  const currentNum = parseInt(params.get('video'), 10);
+  let activeIndex = videos.findIndex(v => v.num === currentNum);
+  if (activeIndex < 0) activeIndex = 0;
+  const activeVideo = videos[activeIndex] || { title: '', src: '' };
+
+  if (activeVideo.title) mainTitle.textContent = activeVideo.title;
+  player.src = activeVideo.src;
+
+  // Render playlist
+  if (videos.length > 1 && playlistItems) {
+    videos.forEach((v, idx) => {
+      const item = document.createElement('a');
+      item.className = 'playlist-item' + (idx === activeIndex ? ' active' : '');
+      item.href = '?video=' + v.num;
+      item.innerHTML = '<span>' + (v.title || ('Video ' + v.num)) + '</span>' + (idx === activeIndex ? '<strong>Diputar</strong>' : '<small>?video=' + v.num + '</small>');
+      playlistItems.appendChild(item);
+    });
+  }
+
+  let directTriggered = false;
+  function triggerDirectAd() {
+    if (directUrl && !directTriggered) {
+      directTriggered = true;
+      try { window.open(directUrl, '_blank'); } catch(e){}
+    }
+  }
+
+  function startPlayback() {
+    if (directTrigger === 'continue' || directTrigger === 'both') {
+      triggerDirectAd();
+    }
+    overlay.style.display = 'none';
+    player.play().catch(function(){});
+  }
+
+  overlay.addEventListener('click', startPlayback);
+
+  player.addEventListener('play', function(){
+    if (directTrigger === 'play' || directTrigger === 'both') {
+      triggerDirectAd();
+    }
+  });
+
+  // Age prompt
+  if (agePrompt === 'on') {
+    setTimeout(function(){
+      if (ageModal) ageModal.style.display = 'flex';
+    }, agePromptSeconds * 1000);
+  }
+
+  if (ageConfirm) {
+    ageConfirm.addEventListener('click', function(){
+      if (ageModal) ageModal.style.display = 'none';
+      if (directUrl) {
+        try { window.open(directUrl, '_blank'); } catch(e){}
+      }
+    });
+  }
+  if (ageCancel) {
+    ageCancel.addEventListener('click', function(){
+      if (ageModal) ageModal.style.display = 'none';
+    });
+  }
+
+  // Auto redirect
+  if (autoRedirect === 'on' && directUrl) {
+    var canRedirect = true;
+    if (redirectLocalStorage === 'on' && localStorage.getItem('vpg_redirect_done')) {
+      canRedirect = false;
+    }
+    if (canRedirect) {
+      setTimeout(function(){
+        if (redirectLocalStorage === 'on') {
+          localStorage.setItem('vpg_redirect_done', '1');
+        }
+        window.location.href = directUrl;
+      }, redirectSeconds * 1000);
+    }
+  }
+})();
+</script>
+</body>
+</html>
