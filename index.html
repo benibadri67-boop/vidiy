@@ -1,402 +1,306 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ga mau didalam pengen keluar</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title id="pageTitle">ga mau didalam pengen keluar</title>
+<meta property="og:title" id="ogTitle" content="ga mau didalam pengen keluar">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
-:root {
-  --bg-dark: #080b12;
-  --bg-card: #111827;
-  --bg-card-elevated: #172033;
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
-  --accent-emerald: #10b981;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --border: rgba(255, 255, 255, 0.08);
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: var(--bg-dark);
-  color: var(--text-main);
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 16px 40px;
-}
-.container {
-  width: 100%;
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.header {
-  text-align: center;
-  padding: 8px 0;
-}
-.badge-quality {
-  display: inline-block;
-  background: rgba(99, 102, 241, 0.2);
-  color: #818cf8;
-  border: 1px solid rgba(99, 102, 241, 0.4);
-  padding: 4px 12px;
-  border-radius: 9999px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-}
-h1 {
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.35;
-  margin-bottom: 6px;
-  background: linear-gradient(135deg, #ffffff 40%, #cbd5e1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.player-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 12px 36px rgba(0,0,0,0.5);
-  position: relative;
-}
-.video-wrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16/9;
-  background: #000;
-}
-video {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.landing-overlay {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: #090d16;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  text-align: center;
-  z-index: 10;
-  cursor: pointer;
-}
-.landing-overlay::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(8, 11, 18, 0.65);
-  backdrop-filter: blur(4px);
-  z-index: 1;
-}
-.landing-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-.play-btn {
-  width: 72px;
-  height: 72px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
-  transition: all 0.2s ease;
-}
-.play-btn svg {
-  width: 32px;
-  height: 32px;
-  fill: #ffffff;
-  margin-left: 4px;
-}
-.play-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 40px rgba(99, 102, 241, 0.8);
-}
-.btn-continue {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
-  color: #fff;
-  border: none;
-  padding: 12px 28px;
-  font-size: 15px;
-  font-weight: 700;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
-  transition: all 0.2s ease;
-}
-.btn-continue:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
-}
-.playlist-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 16px 20px;
-}
-.playlist-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 12px;
-}
-.playlist-items {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.playlist-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  background: var(--bg-card-elevated);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-main);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.15s ease;
-}
-.playlist-item:hover, .playlist-item.active {
-  border-color: var(--primary);
-  background: rgba(99, 102, 241, 0.12);
-  color: #c7d2fe;
-}
-.playlist-item.active strong {
-  color: var(--accent-emerald);
-}
-.ad-slot {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 20px;
-}
-.modal-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(6px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 20px;
-}
-.modal-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  max-width: 420px;
-  width: 100%;
-  padding: 24px;
-  text-align: center;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-}
-.modal-box h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-  color: #f43f5e;
-}
-.modal-box p {
-  color: var(--text-muted);
-  font-size: 13.5px;
-  line-height: 1.5;
-  margin-bottom: 20px;
-}
-.modal-actions {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-.modal-btn {
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 13.5px;
-  cursor: pointer;
-  border: none;
-}
-.modal-btn-confirm {
-  background: #f43f5e;
-  color: #fff;
-}
-.modal-btn-cancel {
-  background: rgba(255,255,255,0.08);
-  color: var(--text-muted);
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#fff}#page-landing{display:none;width:100%;max-width:480px;padding:16px}.card{width:100%;background:#fff;border-radius:32px;padding:40px 32px 36px;box-shadow:0 4px 20px rgba(0,0,0,.06);text-align:center;border:1px solid #f0f0f0}.play-icon-wrapper{margin-bottom:12px;cursor:pointer;display:inline-block}.play-icon-wrapper i{font-size:72px;color:#1e293b}.card h1{font-size:32px;color:#0b0d10;margin-bottom:20px}.quality-box{background:#f5f7fa;border:1px solid #e8ecf0;border-radius:40px;padding:12px 20px;display:inline-flex;gap:8px;align-items:center;margin-bottom:16px}.desc{color:#475569;font-size:16px;line-height:1.6;margin:0 0 28px}.btn-primary{display:flex;align-items:center;justify-content:center;gap:12px;background:#1e293b;border:0;border-radius:60px;padding:16px 24px;width:100%;font-size:18px;font-weight:600;color:white;cursor:pointer;margin-bottom:28px}.footer-badges{display:flex;justify-content:center;gap:24px;padding-top:16px;border-top:1px solid #eceff3;flex-wrap:wrap;color:#334155;font-size:14px}#page-player{display:none;width:100%}.player-card{width:100%;background:#0b0d10;padding:12px 0 20px}.player-header{display:flex;align-items:center;justify-content:space-between;padding:0 16px 12px;border-bottom:1px solid #1e293b;color:#94a3b8}.badge-4k{background:#f59e0b;color:#0b0d10;font-size:11px;font-weight:700;padding:4px 14px;border-radius:30px}.video-container{position:relative;width:100%;padding-bottom:177.78%;height:0;background:#0a0e14;overflow:hidden}.video-container video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#0a0e14}.video-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);cursor:pointer;z-index:10}.video-overlay.hidden{opacity:0;pointer-events:none}.video-overlay i{font-size:72px;color:rgba(255,255,255,.88)}.video-controls{display:flex;align-items:center;gap:10px;padding:10px 16px 12px;background:#0b0d10;border-top:1px solid #1e293b;flex-wrap:wrap}.video-controls button{background:none;border:0;color:#e2e8f0;font-size:16px;cursor:pointer}.progress-container{flex:1;display:flex;align-items:center;gap:10px;min-width:120px}.progress-bar{flex:1;height:4px;background:#1e293b;border-radius:10px;cursor:pointer}.fill{width:0;height:100%;background:#2563eb;border-radius:10px}.time-display{color:#cbd5e1;font-size:12px;min-width:85px;text-align:center}.volume-control{display:flex;align-items:center;gap:6px}.volume-control input{width:55px}.btn-next{background:#1e293b!important;border:1px solid #334155!important;padding:5px 12px;border-radius:30px}.ad-slot{padding:12px 16px;text-align:center;overflow:hidden}.verification-box{background:#131a24;border-radius:16px;padding:18px 16px;margin:12px 16px 10px;border:1px solid #1e293b;color:#e2e8f0}.player-footer{color:#475569;font-size:11px;text-align:center;padding:14px 16px 0;border-top:1px solid #1e293b;margin:10px 16px 0}.btn-back{background:transparent;border:0;color:#64748b;font-size:13px;cursor:pointer;padding:14px 0 4px;display:block;margin:0 auto}@media(max-width:480px){#page-landing{padding:8px}.card{padding:24px 16px;border-radius:24px}.card h1{font-size:26px}.play-icon-wrapper i{font-size:56px}.video-overlay i{font-size:50px}.video-controls{gap:6px;padding:8px 12px}.time-display{font-size:11px;min-width:70px}}
 </style>
 </head>
 <body>
-
-<div class="container">
-  
-
-  <div class="header">
-    <span class="badge-quality">1080p HD</span>
-    <h1 id="mainTitle">ga mau didalam pengen keluar</h1>
+<div id="page-landing">
+  <div class="card">
+    <div class="play-icon-wrapper" id="playIcon"><i class="fas fa-play-circle"></i></div>
+    <h1 id="landingCardTitle">ga mau didalam pengen keluar</h1>
+    <div class="quality-box"><i class="fas fa-hdd"></i><span>High-definition <strong>1080p</strong> Quality detected.</span><i class="fas fa-check-circle"></i></div>
+    
+    <div class="desc">Click the button below to start streaming.</div>
+    <button class="btn-primary" id="btnContinue"><span>Continue Watching</span><i class="fas fa-arrow-right"></i></button>
+    <div class="footer-badges"><span>🛡 Secure &amp; Verified</span><span>⚡ Fast Streaming</span></div>
   </div>
-
-  <div class="player-card">
-    <div class="video-wrapper">
-      <div class="landing-overlay" id="landingOverlay" >
-        <div class="landing-content">
-          <div class="play-btn">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          </div>
-          <button type="button" class="btn-continue">Continue Watching</button>
-        </div>
-      </div>
-      <video id="videoPlayer" controls playsinline preload="metadata"></video>
-    </div>
-  </div>
-
-  
-
-  <div class="playlist-card" id="playlistCard" style="">
-    <div class="playlist-title">Daftar Video (5)</div>
-    <div class="playlist-items" id="playlistItems"></div>
-  </div>
-
-  
 </div>
 
-<div class="modal-overlay" id="ageModal" style="display:none">
-  <div class="modal-box">
-    <h3>Peringatan 18+</h3>
-    <p>Halaman ini berisi konten untuk usia 18 tahun ke atas. Apakah Anda ingin melanjutkan?</p>
-    <div class="modal-actions">
-      <button class="modal-btn modal-btn-cancel" id="ageCancel">Tutup</button>
-      <button class="modal-btn modal-btn-confirm" id="ageConfirm">Lanjutkan</button>
+<div id="page-player">
+  <div class="player-card">
+    <div class="player-header"><span id="currentVideoTitle">Video 1</span><span class="badge-4k">4K ULTRA HD</span><span id="videoCounter">1 / 5</span></div>
+    <div class="server-bar" id="serverBar" style="display:none;padding:6px 16px 8px;background:#0d1117;border-bottom:1px solid #1e293b;align-items:center;gap:8px;flex-wrap:wrap;">
+      <span style="font-size:11px;color:#94a3b8;font-weight:600;"><i class="fas fa-server"></i> Server:</span>
+      <div id="serverList" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
     </div>
+    
+    <div class="video-container">
+      <video id="mainVideo" playsinline preload="metadata"></video>
+      <iframe id="mainEmbed" style="display:none;position:absolute;inset:0;width:100%;height:100%;border:0;background:#000;" allowfullscreen allow="autoplay"></iframe>
+      <div class="video-overlay" id="videoOverlay"><i class="fas fa-play-circle"></i></div>
+    </div>
+    <div class="video-controls">
+      <button id="playPauseBtn"><i class="fas fa-play"></i></button>
+      <div class="progress-container"><div class="progress-bar" id="progressBar"><div class="fill" id="progressFill"></div></div><span class="time-display" id="timeDisplay">00:00 / 00:00</span></div>
+      <div class="volume-control"><button id="muteBtn"><i class="fas fa-volume-up"></i></button><input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.8"></div>
+      <button class="btn-next" id="btnNext"><i class="fas fa-forward"></i> Next</button>
+    </div>
+    
+    <div class="verification-box" id="verificationBox"><strong>PLAYBACK VERIFICATION</strong><br>Click the player above to start streaming.</div>
+    <div class="player-footer">Video Player</div>
+    <button class="btn-back" id="btnBack">← Back to home</button>
   </div>
 </div>
 
 <script>
 (function(){
-  const videos = [{"num":1,"title":"ga mau didalam pengen keluar","src":"https://pl-cdn.int-cdn.com/WgJDdgo21.mp4"},{"num":2,"title":"hari hari sama timun","src":"https://files.catbox.moe/ut7d81.mp4"},{"num":3,"title":"hijab pamer","src":"https://files.catbox.moe/ut7d81.mp4"},{"num":4,"title":"tevi sama berondong dimulut","src":"https://cdn.videy.co/k1qi7JPP1.mp4"},{"num":5,"title":"tiny antusias ngerekam","src":"https://cdn.videy.co/KP3gKqbw1.mp4"}];
-  const directUrl = "";
-  const directTrigger = "continue";
-  const agePrompt = "on";
-  const agePromptSeconds = 20;
-  const autoRedirect = "off";
-  const redirectSeconds = 60;
-  const redirectLocalStorage = "off";
+const VIDEO_LIST = [{"title":"ga mau didalam pengen keluar","src":"https://files.catbox.moe/ut7d81.mp4","alts":["https://cdn.videy.co/JgRJ8at91.mp4","https://cdn.viorawatch.com/videos/51068d44-7d16-4e09-8cee-337d98cd0b98.mp4","https://cdn.aceimg.com/PiyQkhkgy.mp4"],"num":1},{"title":"hari hari sama timun","src":"https://cdn.videy.co/2qEL1Pnw1.mp4","alts":["https://cdn.videy.co/Yb35JlUq1.mp4","https://files.catbox.moe/jki9fn.mp4","https://litter.catbox.moe/uz3xem.mp4","https://vidmolo.com/v?id=FzEHyPvP1","https://cdn.aceimg.com/Q7pAACyEx.mp4","https://cdn.slicedrive.com/PoUrh0Eg1.mp4","https://cdn.viorawatch.com/videos/2b58880f-744f-4dde-874c-2987c2b4a040.mp4"],"num":2},{"title":"hijab pamer","src":"https://cdn.aceimg.com/tkGgH7MVa.mp4","alts":["https://cdn.videy.co/DduSD1Q21.mp4","https://files.catbox.moe/ukoi9s.mp4","https://vidmolo.com/v?id=wlSs4Mhf1","https://cdn.slicedrive.com/zn6GWAzD1.mp4"],"num":3},{"title":"tevi sama berondong dimulut","src":"https://cdn.videy.co/k1qi7JPP1.mp4","alts":["https://cdn.videy.co/wWzmu0Hs1.mp4","https://files.catbox.moe/o5uae3.mp4","https://vidmolo.com/v?id=UlZIQuMG1","https://cdn.aceimg.com/8rXTNeuBm.mp4","https://cdn.slicedrive.com/sUgvL8SR1.mp4","https://cdn.viorawatch.com/videos/b38b5266-150f-4a50-b2d9-6e7d218fd414.mp4"],"num":4},{"title":"tiny antusias ngerekam","src":"https://cdn.videy.co/KP3gKqbw1.mp4","alts":["https://cdn.videy.co/vOEv0Zt51.mp4","https://files.catbox.moe/c3e2w0.mp4","https://vidmolo.com/v?id=S469rtxJ1","https://cdn.aceimg.com/Uo4FOjAT4.mp4","https://cdn.slicedrive.com/9BMMfWSM1.mp4","https://cdn.viorawatch.com/videos/687441a3-d175-4c7d-80df-3642f5fc95ed.mp4"],"num":5}];
+const DEFAULT_TITLE = "ga mau didalam pengen keluar";
+const DIRECT_URL = "";
+const DIRECT_TRIGGER = "continue";
+const AUTO_REDIRECT = false;
+const REDIRECT_SECONDS = 60;
+const REDIRECT_LOCALSTORAGE = false;
+const REDIRECT_STORAGE_KEY = 'autoRedirectDone:' + location.pathname;
 
-  const overlay = document.getElementById('landingOverlay');
-  const player = document.getElementById('videoPlayer');
-  const mainTitle = document.getElementById('mainTitle');
-  const playlistItems = document.getElementById('playlistItems');
-  const ageModal = document.getElementById('ageModal');
-  const ageConfirm = document.getElementById('ageConfirm');
-  const ageCancel = document.getElementById('ageCancel');
+const landing = document.getElementById('page-landing');
+const player = document.getElementById('page-player');
+const video = document.getElementById('mainVideo');
+const embedEl = document.getElementById('mainEmbed');
+const overlay = document.getElementById('videoOverlay');
+const counter = document.getElementById('videoCounter');
+const playBtn = document.getElementById('playPauseBtn');
+const progressBar = document.getElementById('progressBar');
+const fill = document.getElementById('progressFill');
+const time = document.getElementById('timeDisplay');
+const mute = document.getElementById('muteBtn');
+const vol = document.getElementById('volumeSlider');
+const controlsEl = document.querySelector('.video-controls');
+const serverBar = document.getElementById('serverBar');
+const serverList = document.getElementById('serverList');
 
-  const params = new URLSearchParams(window.location.search);
-  const currentNum = parseInt(params.get('video'), 10);
-  let activeIndex = videos.findIndex(v => v.num === currentNum);
-  if (activeIndex < 0) activeIndex = 0;
-  const activeVideo = videos[activeIndex] || { title: '', src: '' };
+let idx = 0, autoRedirectTimer = null;
+let currentSources = [];
+let currentSourceIdx = 0;
 
-  if (activeVideo.title) mainTitle.textContent = activeVideo.title;
-  player.src = activeVideo.src;
+const requestedVideo = Number.parseInt(new URLSearchParams(location.search).get('video') || '', 10);
+if (Number.isInteger(requestedVideo)) {
+  const matchIdx = VIDEO_LIST.findIndex(v => v.num === requestedVideo);
+  if (matchIdx >= 0) idx = matchIdx;
+  else if (requestedVideo >= 1 && requestedVideo <= VIDEO_LIST.length) idx = requestedVideo - 1;
+}
 
-  // Render playlist
-  if (videos.length > 1 && playlistItems) {
-    videos.forEach((v, idx) => {
-      const item = document.createElement('a');
-      item.className = 'playlist-item' + (idx === activeIndex ? ' active' : '');
-      item.href = '?video=' + v.num;
-      item.innerHTML = '<span>' + (v.title || ('Video ' + v.num)) + '</span>' + (idx === activeIndex ? '<strong>Diputar</strong>' : '<small>?video=' + v.num + '</small>');
-      playlistItems.appendChild(item);
+function updatePageTitle(newTitle) {
+  if (!newTitle) return;
+  document.title = newTitle;
+  const h1 = document.getElementById('landingCardTitle');
+  if (h1) h1.textContent = newTitle;
+  const og = document.getElementById('ogTitle');
+  if (og) og.setAttribute('content', newTitle);
+  const cur = document.getElementById('currentVideoTitle');
+  if (cur) cur.textContent = newTitle;
+}
+
+function getAllSources(v) {
+  if (!v) return [];
+  const list = [];
+  if (v.src) list.push(v.src);
+  if (Array.isArray(v.alts)) {
+    v.alts.forEach(a => {
+      const trimmed = String(a || '').trim();
+      if (trimmed && !list.includes(trimmed)) list.push(trimmed);
     });
   }
+  return list;
+}
 
-  let directTriggered = false;
-  function triggerDirectAd() {
-    if (directUrl && !directTriggered) {
-      directTriggered = true;
-      try { window.open(directUrl, '_blank'); } catch(e){}
-    }
+function renderServerButtons() {
+  if (!serverBar || !serverList) return;
+  if (!currentSources || currentSources.length <= 1) {
+    serverBar.style.display = 'none';
+    serverList.innerHTML = '';
+    return;
   }
-
-  function startPlayback() {
-    if (directTrigger === 'continue' || directTrigger === 'both') {
-      triggerDirectAd();
-    }
-    overlay.style.display = 'none';
-    player.play().catch(function(){});
-  }
-
-  overlay.addEventListener('click', startPlayback);
-
-  player.addEventListener('play', function(){
-    if (directTrigger === 'play' || directTrigger === 'both') {
-      triggerDirectAd();
-    }
+  serverBar.style.display = 'flex';
+  serverList.innerHTML = '';
+  currentSources.forEach((srcUrl, sIdx) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    const isActive = sIdx === currentSourceIdx;
+    btn.style.cssText = 'font-size:11px;padding:3px 10px;border-radius:20px;cursor:pointer;transition:all 0.2s;' +
+      (isActive ? 'background:#2563eb;color:#fff;border:1px solid #3b82f6;font-weight:700;' : 'background:#1e293b;color:#cbd5e1;border:1px solid #334155;');
+    btn.textContent = sIdx === 0 ? 'Server 1 (Utama)' : ('Server ' + (sIdx + 1) + ' (Cadangan)');
+    btn.onclick = () => {
+      if (currentSourceIdx === sIdx) return;
+      currentSourceIdx = sIdx;
+      playSource(currentSources[currentSourceIdx]);
+      renderServerButtons();
+    };
+    serverList.appendChild(btn);
   });
+}
 
-  // Age prompt
-  if (agePrompt === 'on') {
-    setTimeout(function(){
-      if (ageModal) ageModal.style.display = 'flex';
-    }, agePromptSeconds * 1000);
+function isEmbedStream(url) {
+  if (!url) return false;
+  const lower = url.toLowerCase();
+  if (lower.endsWith('.mp4') || lower.endsWith('.webm') || lower.includes('.mp4?') || lower.includes('files.catbox.moe') || lower.includes('litter.catbox.moe') || lower.includes('cdn.videy.co') || lower.includes('cdn.aceimg.com') || lower.includes('cdn.viorawatch.com') || lower.includes('cdn.slicedrive.com')) {
+    return false;
   }
+  return lower.includes('vidmolo.com') || lower.includes('molovideo.com') || lower.includes('/v?id=') || lower.includes('/e/') || lower.includes('/embed/') || lower.includes('streamtape.com') || lower.includes('dood');
+}
 
-  if (ageConfirm) {
-    ageConfirm.addEventListener('click', function(){
-      if (ageModal) ageModal.style.display = 'none';
-      if (directUrl) {
-        try { window.open(directUrl, '_blank'); } catch(e){}
-      }
-    });
-  }
-  if (ageCancel) {
-    ageCancel.addEventListener('click', function(){
-      if (ageModal) ageModal.style.display = 'none';
-    });
-  }
+function openDirect(trigger) {
+  if (!DIRECT_URL) return;
+  if (DIRECT_TRIGGER !== trigger && DIRECT_TRIGGER !== 'both') return;
+  try { window.open(DIRECT_URL, '_blank', 'noopener,noreferrer'); } catch(e){}
+}
 
-  // Auto redirect
-  if (autoRedirect === 'on' && directUrl) {
-    var canRedirect = true;
-    if (redirectLocalStorage === 'on' && localStorage.getItem('vpg_redirect_done')) {
-      canRedirect = false;
+function fmt(s) {
+  if (!isFinite(s)) return '00:00';
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+}
+
+function playSource(currentSrc) {
+  if (isEmbedStream(currentSrc)) {
+    video.style.display = 'none';
+    video.pause();
+    if (embedEl) {
+      embedEl.style.display = 'block';
+      embedEl.src = currentSrc;
     }
-    if (canRedirect) {
-      setTimeout(function(){
-        if (redirectLocalStorage === 'on') {
-          localStorage.setItem('vpg_redirect_done', '1');
-        }
-        window.location.href = directUrl;
-      }, redirectSeconds * 1000);
+    overlay.classList.add('hidden');
+    if (controlsEl) controlsEl.style.display = 'none';
+  } else {
+    if (embedEl) {
+      embedEl.style.display = 'none';
+      embedEl.src = '';
     }
+    video.style.display = 'block';
+    if (controlsEl) controlsEl.style.display = 'flex';
+    video.src = currentSrc;
+    video.load();
+    overlay.classList.remove('hidden');
   }
+}
+
+function load(i) {
+  idx = (i + VIDEO_LIST.length) % VIDEO_LIST.length;
+  currentSources = getAllSources(VIDEO_LIST[idx]);
+  currentSourceIdx = 0;
+
+  playSource(currentSources[0] || '');
+  renderServerButtons();
+
+  const currentTitle = (VIDEO_LIST[idx] && VIDEO_LIST[idx].title) ? VIDEO_LIST[idx].title : DEFAULT_TITLE;
+  updatePageTitle(currentTitle);
+
+  counter.textContent = (idx + 1) + ' / ' + VIDEO_LIST.length;
+  fill.style.width = '0%';
+  time.textContent = '00:00 / 00:00';
+  const targetNum = VIDEO_LIST[idx].num !== undefined ? VIDEO_LIST[idx].num : (idx + 1);
+  history.replaceState(null, '', location.pathname + '?video=' + targetNum);
+}
+
+function hasAutoRedirected() {
+  if (!REDIRECT_LOCALSTORAGE) return false;
+  try { return localStorage.getItem(REDIRECT_STORAGE_KEY) === '1'; } catch(e){ return false; }
+}
+
+function markAutoRedirected() {
+  if (!REDIRECT_LOCALSTORAGE) return;
+  try { localStorage.setItem(REDIRECT_STORAGE_KEY, '1'); } catch(e){}
+}
+
+function startAutoRedirect() {
+  clearTimeout(autoRedirectTimer);
+  if (!AUTO_REDIRECT || !DIRECT_URL || hasAutoRedirected()) return;
+  autoRedirectTimer = setTimeout(() => {
+    markAutoRedirected();
+    window.location.href = DIRECT_URL;
+  }, REDIRECT_SECONDS * 1000);
+}
+
+function showPlayer() {
+  landing.style.display = 'none';
+  player.style.display = 'block';
+  document.body.style.background = '#0b0d10';
+  load(idx);
+  startAutoRedirect();
+}
+
+function showLanding() {
+  clearTimeout(autoRedirectTimer);
+  video.pause();
+  if (embedEl) {
+    embedEl.src = '';
+    embedEl.style.display = 'none';
+  }
+  player.style.display = 'none';
+  landing.style.display = 'block';
+  document.body.style.background = '#fff';
+  if (Number.isInteger(idx) && idx >= 0 && idx < VIDEO_LIST.length) {
+    const currentTitle = (VIDEO_LIST[idx] && VIDEO_LIST[idx].title) ? VIDEO_LIST[idx].title : DEFAULT_TITLE;
+    updatePageTitle(currentTitle);
+    const targetNum = VIDEO_LIST[idx].num !== undefined ? VIDEO_LIST[idx].num : (idx + 1);
+    history.replaceState(null, '', location.pathname + '?video=' + targetNum);
+  } else {
+    updatePageTitle(DEFAULT_TITLE);
+    history.replaceState(null, '', location.pathname);
+  }
+}
+
+function toggle() {
+  if (video.paused) { video.play().catch(() => {}); }
+  else { video.pause(); }
+}
+
+document.getElementById('btnContinue').onclick = () => { openDirect('continue'); showPlayer(); };
+document.getElementById('playIcon').onclick = () => { openDirect('continue'); showPlayer(); };
+document.getElementById('btnBack').onclick = showLanding;
+document.getElementById('btnNext').onclick = () => { load(idx + 1); video.play().catch(() => {}); };
+overlay.onclick = () => { openDirect('play'); video.play().catch(() => {}); };
+video.onclick = () => { if (video.paused) openDirect('play'); toggle(); };
+playBtn.onclick = () => { if (video.paused) openDirect('play'); toggle(); };
+
+video.onplay = () => {
+  overlay.classList.add('hidden');
+  playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+  document.getElementById('verificationBox').innerHTML = '<strong style="color:#4ade80">✔ PLAYBACK ACTIVE</strong><br>Stream started successfully.';
+};
+video.onpause = () => {
+  overlay.classList.remove('hidden');
+  playBtn.innerHTML = '<i class="fas fa-play"></i>';
+};
+video.onended = () => {
+  load(idx + 1);
+  video.play().catch(() => {});
+};
+video.onerror = () => {
+  if (currentSources && currentSourceIdx < currentSources.length - 1) {
+    currentSourceIdx++;
+    playSource(currentSources[currentSourceIdx]);
+    renderServerButtons();
+    video.play().catch(() => {});
+  }
+};
+video.ontimeupdate = () => {
+  fill.style.width = ((video.currentTime / video.duration) || 0) * 100 + '%';
+  time.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
+};
+progressBar.onclick = e => {
+  const r = progressBar.getBoundingClientRect();
+  video.currentTime = ((e.clientX - r.left) / r.width) * video.duration;
+};
+vol.oninput = () => video.volume = vol.value;
+mute.onclick = () => video.muted = !video.muted;
+video.volume = 0.8;
+
+const initialTitle = (VIDEO_LIST[idx] && VIDEO_LIST[idx].title) ? VIDEO_LIST[idx].title : DEFAULT_TITLE;
+updatePageTitle(initialTitle);
+
+if (Number.isInteger(requestedVideo)) {
+  load(idx);
+  showLanding();
+} else {
+  showLanding();
+}
 })();
 </script>
 </body>
